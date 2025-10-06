@@ -87,6 +87,7 @@ function App() {
 
   return (
     <div className="relative w-full h-screen overflow-hidden bg-gray-900">
+      <SpeedInsights />
       <CursorSpotlight />
       <DotNavigation
         total={sections.length}
