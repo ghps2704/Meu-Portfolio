@@ -11,7 +11,7 @@
 
 ## 🎯 Sobre o Projeto
 
-Este é o meu portfólio pessoal, desenvolvido para ser a minha vitrine digital como desenvolvedor front-end. O projeto foi construído do zero com o objetivo de não apenas listar meus trabalhos, but de ser, em si, uma demonstração das minhas habilidades com tecnologias modernas, design de interação e animações.
+Este é o meu portfólio pessoal, desenvolvido para ser a minha vitrine digital como desenvolvedor front-end. O projeto foi construído do zero com o objetivo de não apenas listar meus trabalhos, mas de ser, em si, uma demonstração das minhas habilidades com tecnologias modernas, design de interação e animações.
 
 A principal característica é a navegação "full-page scroll" no desktop, inspirada em sites de design premiados, que proporciona uma experiência de usuário imersiva e controlada. No mobile, o site se adapta para uma experiência de rolagem tradicional e fluida, com um menu dedicado.
 
