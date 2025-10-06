@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import useMediaQuery from "./hooks/useMediaQuery";
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 import Header from "./components/Header";
 import MobileMenu from "./components/MobileMenu";
