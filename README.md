@@ -35,7 +35,7 @@ O projeto foi construído utilizando um stack moderno e focado em performance e 
 
 * **Navegação "Full-Page Scroll":** No desktop, cada seção ocupa 100% da tela, com transições verticais suaves controladas pelo scroll do mouse.
 * **Layout Totalmente Responsivo:** A experiência no mobile utiliza um scroll tradicional, com um menu "hambúrguer" para a navegação.
-* **Cursor Interativo e Efeito "Lanterna":** O cursor padrão é substituído por um customizado que interage com os elementos da página, acompanhado de um efeito de "spotlight" que segue o mouse.
+* **Efeito "Lanterna":** O cursor padrão é acompanhado de um efeito de "spotlight" que segue o mouse.
 * **Animações de Entrada e Transição:** Múltiplas animações com Framer Motion, incluindo o surgimento de componentes e formas geométricas que se animam durante a troca de seções.
 * **Efeito 3D (Tilt):** Os cards de projeto possuem um efeito de inclinação 3D ao passar o mouse.
 * **Navegação por Pontos (Dot Navigation):** Com tooltips que indicam a seção de destino.
