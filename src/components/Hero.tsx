@@ -1,0 +1,58 @@
+import { motion } from 'framer-motion';
+import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
+
+export default function Hero() {
+  const socialLinks = [
+    { icon: <FaGithub />, href: 'https://github.com/ghps2704', label: 'GitHub' },
+    { icon: <FaLinkedin />, href: 'https://linkedin.com/in/guilherme-henrique-2a1999218', label: 'LinkedIn' },
+    { icon: <FaEnvelope />, href: 'mailto:gpersuhn2704@gmail.com', label: 'Email' },
+  ];
+
+  return (
+    <section id="inicio" className="h-screen flex items-center justify-center text-center bg-gray-900 text-white p-4">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        <motion.h1 
+          className="text-5xl md:text-7xl font-bold mb-4"
+          initial={{ y: -50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
+        >
+          Guilherme Persuhn
+        </motion.h1>
+
+        <motion.p 
+          className="text-xl md:text-2xl text-gray-300 mb-8"
+          initial={{ y: -50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
+        >
+          Desenvolvedor Front-End | Criando interfaces rápidas e intuitivas.
+        </motion.p>
+
+        <motion.div 
+          className="flex justify-center space-x-6"
+          initial={{ y: -50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.6, ease: 'easeOut' }}
+        >
+          {socialLinks.map((link, index) => (
+            <a 
+              key={index} 
+              href={link.href} 
+              aria-label={link.label}
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-cyan-400 transition-colors duration-300 text-3xl"
+            >
+              {link.icon}
+            </a>
+          ))}
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+}
