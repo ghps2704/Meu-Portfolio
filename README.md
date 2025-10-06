@@ -52,10 +52,10 @@ Durante este projeto, o maior desafio foi a implementação da navegação de "s
 
 ```bash
 # 1. Clone o repositório
-git clone [https://github.com/ghps2704/seu-portfolio.git](https://github.com/ghps2704/seu-portfolio.git)
+git clone [https://github.com/ghps2704/meu-portfolio.git](https://github.com/ghps2704/meu-portfolio.git)
 
 # 2. Navegue até a pasta do projeto
-cd seu-portfolio
+cd meu-portfolio
 
 # 3. Instale as dependências
 npm install
