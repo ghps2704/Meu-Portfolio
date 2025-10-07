@@ -1,73 +1,64 @@
-# React + TypeScript + Vite
+# 🚀 Meu Portfólio Pessoal v1.0
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Status](https://img.shields.io/badge/status-em%20desenvolvimento-blue?style=for-the-badge)
+![Licença](https://img.shields.io/badge/licen%C3%A7a-MIT-green?style=for-the-badge)
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ [Acesse a Versão Ao Vivo](https://guilhermepersuhn.com.br)
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🎯 Sobre o Projeto
 
-## Expanding the ESLint configuration
+Este é o meu portfólio pessoal, desenvolvido para ser a minha vitrine digital como desenvolvedor front-end. O projeto foi construído do zero com o objetivo de não apenas listar meus trabalhos, mas de ser, em si, uma demonstração das minhas habilidades com tecnologias modernas, design de interação e animações.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+A principal característica é a navegação "full-page scroll" no desktop, inspirada em sites de design premiados, que proporciona uma experiência de usuário imersiva e controlada. No mobile, o site se adapta para uma experiência de rolagem tradicional e fluida, com um menu dedicado.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🛠️ Tecnologias Utilizadas
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+O projeto foi construído utilizando um stack moderno e focado em performance e experiência do desenvolvedor:
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+* **React com TypeScript:** Para uma base de componentes robusta, escalável e com tipagem segura.
+* **Vite:** Como build tool, garantindo um ambiente de desenvolvimento extremamente rápido.
+* **Tailwind CSS:** Para a estilização através de classes utilitárias, permitindo a criação de um design customizado de forma ágil.
+* **Framer Motion:** A biblioteca principal para todas as animações, desde as transições de página até as micro-interações do cursor e dos componentes.
+* **React Parallax Tilt:** Para o efeito 3D nos cards de projeto.
+* **React Icons:** Para a utilização de ícones SVG.
+* **Vercel:** Para o deploy e hospedagem contínua a partir do GitHub.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## ✨ Features Implementadas
+
+* **Navegação "Full-Page Scroll":** No desktop, cada seção ocupa 100% da tela, com transições verticais suaves controladas pelo scroll do mouse.
+* **Layout Totalmente Responsivo:** A experiência no mobile utiliza um scroll tradicional, com um menu "hambúrguer" para a navegação.
+* **Efeito "Lanterna":** O cursor padrão é acompanhado de um efeito de "spotlight" que segue o mouse.
+* **Animações de Entrada e Transição:** Múltiplas animações com Framer Motion, incluindo o surgimento de componentes e formas geométricas que se animam durante a troca de seções.
+* **Efeito 3D (Tilt):** Os cards de projeto possuem um efeito de inclinação 3D ao passar o mouse.
+* **Navegação por Pontos (Dot Navigation):** Com tooltips que indicam a seção de destino.
+
+---
+
+## 🧠 Aprendizados e Desafios
+
+Durante este projeto, o maior desafio foi a implementação da navegação de "slides" full-page, controlando o estado de scroll para evitar bugs (como pulos duplos) e garantindo a compatibilidade entre o scroll do desktop e o swipe no mobile. Foi um grande aprendizado sobre a gestão de eventos, a complexidade do `useEffect` e o poder do `useRef` para gerenciar estados que não devem causar re-renderizações.
+
+---
+
+## 🏁 Como Rodar Localmente
+
+```bash
+# 1. Clone o repositório
+git clone [https://github.com/ghps2704/meu-portfolio.git](https://github.com/ghps2704/meu-portfolio.git)
+
+# 2. Navegue até a pasta do projeto
+cd meu-portfolio
+
+# 3. Instale as dependências
+npm install
+
+# 4. Inicie o servidor de desenvolvimento
+npm run dev
