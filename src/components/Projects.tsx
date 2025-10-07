@@ -36,7 +36,7 @@ export default function Projects() {
         </p>
       </div>
 
-      <div className="flex-grow overflow-y-auto pb-20 md:pb-24">
+      <div className="flex-grow overflow-y-auto pb-20 md:pb-24 scrollbar-thin scrollbar-thumb-cyan-400 scrollbar-track-gray-700 [mask-image:linear-gradient(to_bottom,black_50%,transparent)]">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10">
             {projectsData.map((project, index) => (

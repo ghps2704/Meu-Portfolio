@@ -2,7 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-
 body {
-    overflow: hidden;
-  }
+  overflow: hidden;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 8px; /* Largura da barra de rolagem fina */
+  height: 8px;
+}
+
+.scrollbar-track-gray-700::-webkit-scrollbar-track {
+  background-color: #374151; /* Cor do "trilho" (gray-700) */
+}
+
+.scrollbar-thumb-cyan-400::-webkit-scrollbar-thumb {
+  background-color: #22d3ee; /* Cor da barra que se move (cyan-400) */
+  border-radius: 10px;
+}
