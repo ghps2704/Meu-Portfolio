@@ -12,6 +12,23 @@ const projectsData = [
     liveUrl: "https://portfolio-adriana-gold.vercel.app/",
     repoUrl: "https://github.com/ghps2704/portfolio-adriana",
   },
+  {
+    title: "Quantum Store (E-commerce)",
+    description:
+      "Um e-commerce front-end completo com carrinho, filtros, busca e animações, construído para simular uma experiência de compra real utilizando a Context API do React.",
+    imageUrl: "/quantum-store.png", // Lembre-se de tirar um screenshot e colocar na pasta /public
+    techStack: [
+      "React",
+      "TypeScript",
+      "Vite",
+      "Tailwind CSS",
+      "React Router",
+      "Framer Motion",
+      "React Hot Toast",
+    ],
+    liveUrl: "https://quantum-store-psi.vercel.app/",
+    repoUrl: "https://github.com/ghps2704/QuantumStore",
+  },
 ];
 
 const cardVariants: Variants = {
