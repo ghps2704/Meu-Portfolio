@@ -16,7 +16,7 @@ const projectsData = [
     title: "Quantum Store (E-commerce)",
     description:
       "Um e-commerce front-end completo com carrinho, filtros, busca e animações, construído para simular uma experiência de compra real utilizando a Context API do React.",
-    imageUrl: "/quantum-store.png", // Lembre-se de tirar um screenshot e colocar na pasta /public
+    imageUrl: "/quantum-store.png",
     techStack: [
       "React",
       "TypeScript",
@@ -53,7 +53,7 @@ export default function Projects() {
         </p>
       </div>
 
-      <div className="flex-grow overflow-y-auto pb-20 md:pb-24 scrollbar-thin scrollbar-thumb-cyan-400 scrollbar-track-gray-700 [mask-image:linear-gradient(to_bottom,black_50%,transparent)]">
+      <div className="flex-grow overflow-y-auto pb-20 md:pb-24 scrollbar-thin scrollbar-thumb-cyan-400 scrollbar-track-gray-700 [mask-image:linear-gradient(to_bottom,black_80%,transparent)]">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10">
             {projectsData.map((project, index) => (
