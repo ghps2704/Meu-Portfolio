@@ -1,13 +1,7 @@
-// src/App.tsx
 import { useState, useEffect, useRef } from "react";
-import {
-  motion,
-  AnimatePresence,
-  type Variants,
-} from "framer-motion";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 import useMediaQuery from "./hooks/useMediaQuery";
-import { SpeedInsights } from "@vercel/speed-insights/react";
-import { Toaster } from "react-hot-toast";
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 import Header from "./components/Header";
 import MobileMenu from "./components/MobileMenu";
@@ -36,6 +30,7 @@ const sectionVariants: Variants = {
 
 function App() {
   const isMobile = useMediaQuery("(max-width: 768px)");
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
@@ -76,19 +71,11 @@ function App() {
     };
   }, [isMobile, currentIndex]);
 
-  // LAYOUT MOBILE
   if (isMobile) {
     return (
       <div className="bg-gray-900">
         <Header isOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
         <MobileMenu isOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
-
-        {/* Adicionado o Toaster para o mobile */}
-        <Toaster
-          position="bottom-center"
-          toastOptions={{ style: { background: "#333", color: "#fff" } }}
-        />
-
         <main>
           {sections.map((Section, index) => (
             <div key={index}>{Section}</div>
@@ -98,15 +85,8 @@ function App() {
     );
   }
 
-  // LAYOUT DESKTOP
   return (
     <div className="relative w-full h-screen overflow-hidden bg-gray-900">
-      {/* Adicionado o Toaster para o desktop */}
-      <Toaster
-        position="bottom-center"
-        toastOptions={{ style: { background: "#333", color: "#fff" } }}
-      />
-
       <SpeedInsights />
       <CursorSpotlight />
       <DotNavigation

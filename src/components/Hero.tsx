@@ -48,7 +48,8 @@ export default function Hero() {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
         >
-          Desenvolvedor Front-End | Criando interfaces rápidas e intuitivas.
+          Transformo sua visão em um produto digital, e seu produto em um
+          negócio.
         </motion.p>
 
         <motion.div
