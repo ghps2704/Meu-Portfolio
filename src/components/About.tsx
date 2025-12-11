@@ -48,11 +48,13 @@ export default function About() {
               estratégicas sob pressão.
             </p>
             <p className="text-lg text-gray-300 leading-relaxed">
-              Hoje, eu uno essas duas frentes. Minha paixão é usar minha
-              habilidade técnica para construir produtos digitais, e minha visão
-              estratégica como Lançador Digital para garantir que esses
-              produtos se transformem em negócios de sucesso. Eu não só construo
-              a plataforma; eu ajudo a criar o plano para o seu lançamento.
+              Durante as tardes, canalizo essa mesma energia e foco no
+              desenvolvimento front-end, minha outra grande paixão. Utilizo
+              minha capacidade de resolver problemas para construir interfaces
+              de usuário que não são apenas bonitas, mas também eficientes e
+              intuitivas. Acredito que a mesma atenção aos detalhes que leva ao
+              sucesso no mercado é a que cria uma experiência digital de alta
+              qualidade.
             </p>
 
             <div className="pt-4">

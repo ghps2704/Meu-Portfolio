@@ -49,8 +49,7 @@ export default function Projects() {
       <div className="container mx-auto px-6 text-center flex-shrink-0">
         <h2 className="text-4xl font-bold text-cyan-400">Meus Projetos</h2>
         <p className="text-lg text-gray-300 mt-4 mb-10">
-          Veja na prática como eu transformo ideias em plataformas digitais e
-          produtos em negócios.
+          Uma amostra do que eu amo construir.
         </p>
       </div>
 

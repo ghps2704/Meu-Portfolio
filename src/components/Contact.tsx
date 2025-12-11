@@ -24,12 +24,12 @@ export default function Contact() {
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <h2 className="text-4xl font-bold font-display text-cyan-400 mb-4">
-            Pronto para Lançar seu Projeto?
+            Entre em Contato
           </h2>
           <p className="text-lg text-gray-300 max-w-2xl mx-auto mb-8">
-            Se você tem uma ideia e precisa de um parceiro estratégico que cuide
-            tanto da tecnologia (o produto) quanto da estratégia (o
-            negócio), adoraria conversar.
+            Gostou do que viu? Atualmente estou disponível para novas
+            oportunidades e projetos. Adoraria ouvir sobre suas
+            ideias.
           </p>
 
           <a
