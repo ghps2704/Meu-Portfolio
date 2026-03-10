@@ -3,10 +3,11 @@ import { motion } from "framer-motion";
 const techSkills = [
   "React",
   "TypeScript",
+  "Node.js",
+  "Supabase",
+  "n8n",
   "Tailwind CSS",
   "Framer Motion",
-  "Estratégia Digital",
-  "SEO",
   "Git",
   "Vite",
 ];
@@ -29,6 +30,7 @@ export default function About() {
             <img
               src="/guilherme.png"
               alt="Foto de Guilherme Persuhn"
+              loading="lazy"
               className="rounded-full w-60 h-60 md:w-72 md:h-72 object-cover shadow-lg border-4 border-gray-700"
             />
           </div>
@@ -36,25 +38,23 @@ export default function About() {
           <div className="md:col-span-2 space-y-6">
             <h2 className="text-4xl font-bold mb-4 text-cyan-400">Sobre Mim</h2>
             <p className="text-lg text-gray-300 leading-relaxed">
-              Sou um profissional com um perfil único que une o técnico, o
-              analítico e o estratégico.
+              Construo coisas na intersecção entre Tecnologia e Finanças.
             </p>
             <p className="text-lg text-gray-300 leading-relaxed">
-              Minha base é o desenvolvimento front-end, uma área em que
-              tenho mais de 4 anos de experiência, com foco total em React,
-              TypeScript e na construção de interfaces de alta performance.
-              Minha jornada no mercado financeiro como Day Trader afiou
-              minha visão analítica, disciplina e a capacidade de tomar decisões
-              estratégicas sob pressão.
+              Como Software Engineer, me especializo em criar ferramentas
+              internas, automações e aplicações full-stack que resolvem
+              problemas reais de negócio — não só funcionais, mas que as
+              pessoas realmente querem usar. Meu stack atual gira em torno de
+              React, TypeScript, Node.js e ferramentas no-code como n8n,
+              sempre escolhidas com base no que o problema exige.
             </p>
             <p className="text-lg text-gray-300 leading-relaxed">
-              Durante as tardes, canalizo essa mesma energia e foco no
-              desenvolvimento front-end, minha outra grande paixão. Utilizo
-              minha capacidade de resolver problemas para construir interfaces
-              de usuário que não são apenas bonitas, mas também eficientes e
-              intuitivas. Acredito que a mesma atenção aos detalhes que leva ao
-              sucesso no mercado é a que cria uma experiência digital de alta
-              qualidade.
+              Em paralelo, opero os mercados B3 e americano de forma
+              independente. Esse mundo afiou algo que a engenharia pura
+              raramente desenvolve: a capacidade de tomar decisões sob
+              incerteza, gerenciar risco e manter disciplina quando os sistemas
+              não se comportam como esperado. Isso mudou a forma como penso
+              sobre software.
             </p>
 
             <div className="pt-4">

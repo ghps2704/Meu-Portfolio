@@ -4,6 +4,15 @@ import ParallaxTilt from "react-parallax-tilt";
 
 const projectsData = [
   {
+    title: "Trade Claro — Diário de Trades",
+    description:
+      "Diário de trades com camada psicológica integrada para day traders brasileiros. Registra resultado, emoção, confiança e adesão ao plano — e cruza esses dados para revelar padrões comportamentais automáticos como 'você perde mais quando a emoção está abaixo de 5'.",
+    imageUrl: "/trade-claro.png",
+    techStack: ["React", "TypeScript", "Supabase", "Vercel"],
+    liveUrl: "https://trade-claro-43rz.vercel.app/",
+    repoUrl: null,
+  },
+  {
     title: "Portfólio para Psicóloga",
     description:
       "Um site de apresentação profissional e acolhedor para uma psicóloga, focado em transmitir confiança e facilitar o agendamento de consultas.",
@@ -76,6 +85,7 @@ export default function Projects() {
                   <img
                     src={project.imageUrl}
                     alt={`Screenshot do projeto ${project.title}`}
+                    loading="lazy"
                     className="w-full h-64 object-cover object-top"
                   />
                   <div className="p-6">
@@ -100,14 +110,16 @@ export default function Projects() {
                       >
                         Ver ao Vivo <FaExternalLinkAlt className="ml-2" />
                       </a>
-                      <a
-                        href={project.repoUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center font-semibold text-cyan-400 hover:text-cyan-300 transition-colors"
-                      >
-                        Ver o Código <FaGithub className="ml-2" />
-                      </a>
+                      {project.repoUrl && (
+                        <a
+                          href={project.repoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center font-semibold text-cyan-400 hover:text-cyan-300 transition-colors"
+                        >
+                          Ver o Código <FaGithub className="ml-2" />
+                        </a>
+                      )}
                     </div>
                   </div>
                 </motion.div>
