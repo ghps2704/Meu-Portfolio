@@ -10,7 +10,7 @@ const projectsData = [
     imageUrl: "/trade-claro.png",
     techStack: ["React", "TypeScript", "Supabase", "Vercel"],
     liveUrl: "https://trade-claro-43rz.vercel.app/",
-    repoUrl: null,
+    repoUrl: "https://github.com/ghps2704/trade-claro",
   },
   {
     title: "Portfólio para Psicóloga",
@@ -49,6 +49,17 @@ const cardVariants: Variants = {
   },
 };
 
+function handleContainerWheel(e: React.WheelEvent<HTMLDivElement>) {
+  const el = e.currentTarget;
+  const scrollingDown = e.deltaY > 0;
+  const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 1;
+  const atTop = el.scrollTop <= 0;
+
+  if ((scrollingDown && !atBottom) || (!scrollingDown && !atTop)) {
+    e.stopPropagation();
+  }
+}
+
 export default function Projects() {
   return (
     <section
@@ -62,7 +73,7 @@ export default function Projects() {
         </p>
       </div>
 
-      <div className="flex-grow overflow-y-auto pb-20 md:pb-24 scrollbar-thin scrollbar-thumb-cyan-400 scrollbar-track-gray-700 [mask-image:linear-gradient (transparent)]">
+      <div onWheel={handleContainerWheel} className="flex-grow overflow-y-auto pb-20 md:pb-24 scrollbar-thin scrollbar-thumb-cyan-400 scrollbar-track-gray-700 [mask-image:linear-gradient (transparent)]">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10">
             {projectsData.map((project, index) => (
