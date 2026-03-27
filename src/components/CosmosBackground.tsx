@@ -4,7 +4,11 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 
-export default function CosmosBackground() {
+interface Props {
+  lite?: boolean; // reduced quality for mobile (no bloom, fewer stars)
+}
+
+export default function CosmosBackground({ lite = false }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -30,25 +34,29 @@ export default function CosmosBackground() {
       alpha: true,
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(lite ? 1 : Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 0.5;
 
-    // Post-processing
-    const composer = new EffectComposer(renderer);
-    composer.addPass(new RenderPass(scene, camera));
-    const bloomPass = new UnrealBloomPass(
-      new THREE.Vector2(window.innerWidth, window.innerHeight),
-      0.8,
-      0.4,
-      0.85
-    );
-    composer.addPass(bloomPass);
+    // Post-processing (desktop only — bloom is GPU-heavy on mobile)
+    let composer: EffectComposer | null = null;
+    if (!lite) {
+      composer = new EffectComposer(renderer);
+      composer.addPass(new RenderPass(scene, camera));
+      const bloomPass = new UnrealBloomPass(
+        new THREE.Vector2(window.innerWidth, window.innerHeight),
+        0.8,
+        0.4,
+        0.85
+      );
+      composer.addPass(bloomPass);
+    }
 
-    // Star field (3 layers)
+    // Star field — 3 layers on desktop, 1 lighter layer on mobile
     const stars: THREE.Points[] = [];
-    for (let i = 0; i < 3; i++) {
-      const starCount = 5000;
+    const layerCount = lite ? 1 : 3;
+    for (let i = 0; i < layerCount; i++) {
+      const starCount = lite ? 1800 : 5000;
       const geometry = new THREE.BufferGeometry();
       const positions = new Float32Array(starCount * 3);
       const colors = new Float32Array(starCount * 3);
@@ -124,8 +132,8 @@ export default function CosmosBackground() {
       stars.push(starField);
     }
 
-    // Nebula — colors adapted to cyan portfolio accent
-    const nebulaGeo = new THREE.PlaneGeometry(8000, 4000, 100, 100);
+    // Nebula — desktop only (shader complexity not worth it on mobile)
+    const nebulaGeo = new THREE.PlaneGeometry(lite ? 1 : 8000, lite ? 1 : 4000, lite ? 1 : 100, lite ? 1 : 100);
     const nebulaMat = new THREE.ShaderMaterial({
       uniforms: {
         time: { value: 0 },
@@ -312,7 +320,11 @@ export default function CosmosBackground() {
         m.position.y = 50 + Math.cos(time * 0.15) * f;
       });
 
-      composer.render();
+      if (composer) {
+        composer.render();
+      } else {
+        renderer.render(scene, camera);
+      }
     };
 
     animate();
@@ -321,7 +333,7 @@ export default function CosmosBackground() {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
-      composer.setSize(window.innerWidth, window.innerHeight);
+      composer?.setSize(window.innerWidth, window.innerHeight);
     };
     window.addEventListener('resize', handleResize);
 
@@ -342,9 +354,9 @@ export default function CosmosBackground() {
       atmGeo.dispose();
       atmMat.dispose();
       renderer.dispose();
-      composer.dispose();
+      composer?.dispose();
     };
-  }, []);
+  }, [lite]);
 
   return (
     <canvas

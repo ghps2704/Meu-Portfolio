@@ -63,10 +63,10 @@ export default function App() {
     return () => window.removeEventListener("scroll", onScroll);
   }, [isMobile]);
 
-  // Mobile layout — keep simple with standard scroll
+  // Mobile layout — cosmos lite + standard scroll
   if (isMobile) {
     return (
-      <div className="bg-gray-950 min-h-screen">
+      <div style={{ background: "#000" }}>
         <Toaster
           position="bottom-center"
           toastOptions={{
@@ -77,14 +77,26 @@ export default function App() {
             },
           }}
         />
-        <Header isOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
-        <MobileMenu isOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
-        <main>
-          <Hero />
-          <About />
-          <Projects />
-          <Contact />
-        </main>
+        <CosmosBackground lite />
+        {/* Vignette for readability */}
+        <div
+          className="fixed inset-0 pointer-events-none"
+          style={{
+            zIndex: 1,
+            background:
+              "radial-gradient(ellipse at 50% 40%, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.65) 100%)",
+          }}
+        />
+        <div className="relative" style={{ zIndex: 10 }}>
+          <Header isOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
+          <MobileMenu isOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
+          <main>
+            <Hero />
+            <About />
+            <Projects />
+            <Contact />
+          </main>
+        </div>
       </div>
     );
   }
