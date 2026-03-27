@@ -1,119 +1,179 @@
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence, type Variants } from "framer-motion";
+import { SpeedInsights } from "@vercel/speed-insights/react";
+import { Toaster } from "react-hot-toast";
 import useMediaQuery from "./hooks/useMediaQuery";
-import { SpeedInsights } from '@vercel/speed-insights/react';
 
-import Header from "./components/Header";
-import MobileMenu from "./components/MobileMenu";
+import CosmosBackground from "./components/CosmosBackground";
 import Hero from "./components/Hero";
 import About from "./components/About";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
-import DotNavigation from "./components/DotNavigation";
-import CursorSpotlight from "./components/CursorSpotlight";
-import AnimatedShape from "./components/AnimatedShape";
+import Header from "./components/Header";
+import MobileMenu from "./components/MobileMenu";
 
-const sections = [<Hero />, <About />, <Projects />, <Contact />];
+const NAV_ITEMS = [
+  { label: "INÍCIO", id: "inicio" },
+  { label: "SOBRE", id: "sobre" },
+  { label: "PROJETOS", id: "projetos" },
+  { label: "CONTATO", id: "contato" },
+];
 
-const sectionVariants: Variants = {
-  enter: (direction: number) => ({
-    y: direction > 0 ? "100vh" : "-100vh",
-    opacity: 0,
-  }),
-  center: { zIndex: 1, y: 0, opacity: 1 },
-  exit: (direction: number) => ({
-    zIndex: 0,
-    y: direction < 0 ? "100vh" : "-100vh",
-    opacity: 0,
-  }),
-};
+function scrollToSection(id: string) {
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+}
 
-function App() {
+export default function App() {
   const isMobile = useMediaQuery("(max-width: 768px)");
-
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [direction, setDirection] = useState(0);
-  const isScrolling = useRef(false);
-
-  const changeSection = (newIndex: number) => {
-    if (
-      isScrolling.current ||
-      newIndex === currentIndex ||
-      newIndex < 0 ||
-      newIndex >= sections.length
-    )
-      return;
-    isScrolling.current = true;
-    setTimeout(() => {
-      isScrolling.current = false;
-    }, 1300);
-    setDirection(newIndex > currentIndex ? 1 : -1);
-    setCurrentIndex(newIndex);
-  };
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [currentSection, setCurrentSection] = useState(0);
+  const ticking = useRef(false);
 
   useEffect(() => {
-    if (isMobile) {
-      document.body.style.overflow = "auto";
-      return;
-    }
-    document.body.style.overflow = "hidden";
-    const handleWheel = (event: WheelEvent) => {
-      if (isScrolling.current) return;
-      const scrollDirection = event.deltaY > 0 ? 1 : -1;
-      const nextIndex = currentIndex + scrollDirection;
-      changeSection(nextIndex);
-    };
-    window.addEventListener("wheel", handleWheel);
-    return () => {
-      window.removeEventListener("wheel", handleWheel);
-      document.body.style.overflow = "auto";
-    };
-  }, [isMobile, currentIndex]);
+    if (isMobile) return;
 
+    const onScroll = () => {
+      if (ticking.current) return;
+      ticking.current = true;
+      requestAnimationFrame(() => {
+        const maxScroll =
+          document.documentElement.scrollHeight - window.innerHeight;
+        const progress = maxScroll > 0
+          ? Math.max(0, Math.min(1, window.scrollY / maxScroll))
+          : 0;
+        setScrollProgress(progress);
+
+        // Determine current section by which element is most in view
+        const ids = NAV_ITEMS.map((n) => n.id);
+        let active = 0;
+        ids.forEach((id, i) => {
+          const el = document.getElementById(id);
+          if (el) {
+            const rect = el.getBoundingClientRect();
+            if (rect.top <= window.innerHeight * 0.5) active = i;
+          }
+        });
+        setCurrentSection(active);
+        ticking.current = false;
+      });
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [isMobile]);
+
+  // Mobile layout — keep simple with standard scroll
   if (isMobile) {
     return (
-      <div className="bg-gray-900">
+      <div className="bg-gray-950 min-h-screen">
+        <Toaster
+          position="bottom-center"
+          toastOptions={{
+            style: {
+              background: "#0f172a",
+              color: "#22d3ee",
+              border: "1px solid rgba(34,211,238,0.2)",
+            },
+          }}
+        />
         <Header isOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
         <MobileMenu isOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
         <main>
-          {sections.map((Section, index) => (
-            <div key={index}>{Section}</div>
-          ))}
+          <Hero />
+          <About />
+          <Projects />
+          <Contact />
         </main>
       </div>
     );
   }
 
+  // Desktop — cosmic long-scroll experience
   return (
-    <div className="relative w-full h-screen overflow-hidden bg-gray-900">
+    <div style={{ background: "#000" }}>
       <SpeedInsights />
-      <CursorSpotlight />
-      <DotNavigation
-        total={sections.length}
-        currentIndex={currentIndex}
-        setCurrentIndex={changeSection}
+      <Toaster
+        position="bottom-center"
+        toastOptions={{
+          style: {
+            background: "#0f172a",
+            color: "#22d3ee",
+            border: "1px solid rgba(34,211,238,0.2)",
+          },
+        }}
       />
-      <AnimatePresence initial={false} custom={direction}>
-        <motion.div
-          key={currentIndex}
-          className="absolute w-full h-full"
-          variants={sectionVariants}
-          custom={direction}
-          initial="enter"
-          animate="center"
-          exit="exit"
-          transition={{
-            y: { type: "tween", ease: "easeInOut", duration: 1.2 },
-            opacity: { duration: 0.4, ease: "easeOut" },
-          }}
+
+      {/* Three.js fixed canvas */}
+      <CosmosBackground />
+
+      {/* Dark vignette overlay — improves text readability against bright stars/bloom */}
+      <div
+        className="fixed inset-0 pointer-events-none"
+        style={{
+          zIndex: 1,
+          background:
+            "radial-gradient(ellipse at 50% 40%, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 100%)",
+        }}
+      />
+
+      {/* Side navigation */}
+      <nav
+        className="fixed left-8 top-1/2 -translate-y-1/2 z-50 flex flex-col items-center gap-5"
+        aria-label="Navegação lateral"
+      >
+        {/* Hamburger icon */}
+        <div className="flex flex-col gap-1 mb-2">
+          <span className="block w-6 h-px bg-cyan-400" />
+          <span className="block w-4 h-px bg-cyan-400/60" />
+          <span className="block w-5 h-px bg-cyan-400/40" />
+        </div>
+
+        {/* Vertical nav labels */}
+        <div
+          className="flex flex-col gap-4"
+          style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
         >
-          <AnimatedShape />
-          {sections[currentIndex]}
-        </motion.div>
-      </AnimatePresence>
+          {NAV_ITEMS.map((item, i) => (
+            <button
+              key={item.id}
+              onClick={() => scrollToSection(item.id)}
+              className={`text-[10px] tracking-[0.35em] font-light transition-all duration-300 ${
+                currentSection === i
+                  ? "text-cyan-400"
+                  : "text-gray-600 hover:text-gray-300"
+              }`}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+      </nav>
+
+      {/* Scroll progress indicator */}
+      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center gap-2 pointer-events-none">
+        <span className="text-[9px] tracking-[0.45em] text-gray-500 font-light">
+          SCROLL
+        </span>
+        <div className="w-28 h-px bg-gray-800 relative overflow-hidden">
+          <div
+            className="absolute inset-y-0 left-0 bg-cyan-400 transition-all duration-150"
+            style={{ width: `${scrollProgress * 100}%` }}
+          />
+        </div>
+        <span className="text-[9px] tracking-[0.25em] text-gray-500 font-light">
+          {String(currentSection + 1).padStart(2, "0")} /{" "}
+          {String(NAV_ITEMS.length).padStart(2, "0")}
+        </span>
+      </div>
+
+      {/* Scrollable content */}
+      <main className="relative z-10">
+        <Hero />
+        <About />
+        <Projects />
+        <Contact />
+      </main>
     </div>
   );
 }
-
-export default App;
