@@ -95,8 +95,19 @@ export default function Hero() {
       data-section
       className="relative min-h-screen flex flex-col items-center justify-center text-center text-white px-6"
     >
+      {/* Dark radial backdrop — darkens the cosmos behind the name without touching the letters */}
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          width: "80vw",
+          height: "55vh",
+          background:
+            "radial-gradient(ellipse at center, rgba(0,0,0,0.75) 0%, transparent 70%)",
+        }}
+      />
+
       {/* Main title block */}
-      <div ref={titleRef} className="leading-none overflow-visible">
+      <div ref={titleRef} className="relative leading-none overflow-visible">
         {/* First line — solid white */}
         <div className="overflow-hidden mb-2">
           <SplitChars
