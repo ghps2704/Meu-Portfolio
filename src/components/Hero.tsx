@@ -86,7 +86,7 @@ export default function Hero() {
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(MY_EMAIL);
-    toast.success("E-mail copiado!");
+    toast.success("Email copied!");
   };
 
   return (
@@ -139,7 +139,7 @@ export default function Hero() {
           Software Engineer
         </p>
         <p className="text-[10px] tracking-[0.35em] text-gray-600 font-light uppercase hidden md:block">
-          Criando sistemas rápidos &amp; interfaces interativas
+          Building fast systems &amp; interactive interfaces
         </p>
       </div>
 
@@ -171,7 +171,7 @@ export default function Hero() {
         <span className="w-px h-4 bg-gray-800" />
         <button
           onClick={handleCopyEmail}
-          aria-label="Copiar e-mail"
+          aria-label="Copy email"
           className="text-gray-500 hover:text-cyan-400 transition-all duration-300 text-xl hover:scale-110"
         >
           <FaEnvelope />
@@ -185,7 +185,7 @@ export default function Hero() {
         style={{ opacity: 0 }}
       >
         <span className="text-[9px] tracking-[0.5em] text-gray-600 font-light">
-          ROLE PARA EXPLORAR
+          SCROLL TO EXPLORE
         </span>
         <div className="w-px h-10 bg-gradient-to-b from-cyan-400/60 to-transparent animate-pulse" />
       </div>

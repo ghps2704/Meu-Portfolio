@@ -7,7 +7,7 @@ interface DotNavigationProps {
   setCurrentIndex: (index: number) => void;
 }
 
-const sectionNames = ["Início", "Sobre", "Projetos", "Contato"];
+const sectionNames = ["Home", "About", "Projects", "Contact"];
 
 export default function DotNavigation({
   total,

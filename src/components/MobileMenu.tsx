@@ -1,10 +1,10 @@
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
-  { to: "inicio", label: "Início" },
-  { to: "sobre", label: "Sobre" },
-  { to: "projetos", label: "Projetos" },
-  { to: "contato", label: "Contato" },
+  { to: "inicio", label: "Home" },
+  { to: "sobre", label: "About" },
+  { to: "projetos", label: "Projects" },
+  { to: "contato", label: "Contact" },
 ];
 
 interface MobileMenuProps {

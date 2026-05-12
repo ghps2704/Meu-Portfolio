@@ -48,7 +48,7 @@ export default function About() {
                 Software Engineer
               </p>
               <p className="text-[9px] tracking-[0.35em] text-gray-700 uppercase mt-1">
-                Brasil — Inst. ESPE &amp; Empreendedor
+                Brazil — ESPE Institute &amp; Entrepreneur
               </p>
             </div>
           </motion.div>
@@ -64,7 +64,7 @@ export default function About() {
             {/* Glass card */}
             <div className="bg-black/60 backdrop-blur-md border border-white/10 rounded-2xl p-8 md:p-10">
               <h2 className="text-[10px] tracking-[0.55em] text-cyan-400/70 uppercase mb-3">
-                Sobre Mim
+                About Me
               </h2>
               <h3 className="text-3xl md:text-4xl font-black tracking-wider text-white mb-2">
                 GUILHERME
@@ -73,34 +73,33 @@ export default function About() {
 
               <div className="space-y-4 text-gray-400 text-sm leading-relaxed">
                 <p>
-                  Construo coisas na intersecção entre{" "}
+                  I build things at the intersection of{" "}
                   <span className="text-cyan-400/80">
-                    Tecnologia e Finanças
+                    Technology and Finance
                   </span>
                   .
                 </p>
                 <p>
-                  Como Software Engineer, me especializo em criar ferramentas
-                  internas, automações e aplicações full-stack que resolvem
-                  problemas reais de negócio. Meu stack gira em torno de React,
-                  TypeScript, Node.js e ferramentas no-code como n8n.
+                  As a Software Engineer, I specialize in building internal
+                  tools, automations, and full-stack applications that solve
+                  real business problems. My stack revolves around React,
+                  TypeScript, Node.js, and no-code tools like n8n.
                 </p>
                 <p>
-                  Em paralelo, opero os mercados B3 e americano de forma
-                  independente. Isso afiou algo que a engenharia pura raramente
-                  desenvolve: a capacidade de tomar{" "}
+                  In parallel, I independently trade the B3 and US markets.
+                  This has sharpened something that pure engineering rarely
+                  develops: the ability to make{" "}
                   <span className="text-cyan-400/80">
-                    decisões sob incerteza
+                    decisions under uncertainty
                   </span>{" "}
-                  e manter disciplina quando sistemas não se comportam como
-                  esperado.
+                  and maintain discipline when systems don't behave as expected.
                 </p>
               </div>
 
               {/* Skills */}
               <div className="mt-8">
                 <p className="text-[9px] tracking-[0.45em] text-gray-600 uppercase mb-4">
-                  Stack &amp; Ferramentas
+                  Stack &amp; Tools
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {techSkills.map((skill) => (

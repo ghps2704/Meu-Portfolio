@@ -5,19 +5,19 @@ import ParallaxTilt from "react-parallax-tilt";
 const projectsData = [
   {
     title: "Trade Claro",
-    subtitle: "Diário de Trades",
+    subtitle: "Trade Journal",
     description:
-      "Diário de trades com camada psicológica integrada para day traders brasileiros. Registra resultado, emoção, confiança e adesão ao plano — e cruza esses dados para revelar padrões comportamentais.",
+      "Trade journal with an integrated psychological layer for day traders. Tracks results, emotions, confidence, and plan adherence — then cross-references that data to reveal behavioral patterns.",
     imageUrl: "/trade-claro.png",
     techStack: ["React", "TypeScript", "Supabase", "Vercel"],
     liveUrl: "https://trade-claro-43rz.vercel.app/",
     accentColor: "from-cyan-500/20 to-blue-600/10",
   },
   {
-    title: "Portfólio",
-    subtitle: "Para Psicóloga",
+    title: "Portfolio",
+    subtitle: "For a Psychologist",
     description:
-      "Site de apresentação profissional e acolhedor para uma psicóloga, focado em transmitir confiança e facilitar o agendamento de consultas.",
+      "A professional and welcoming website for a psychologist, focused on conveying trust and making it easy to schedule appointments.",
     imageUrl: "/print-porfolio-psicologa.png",
     techStack: ["React", "TypeScript", "Tailwind CSS", "Framer Motion", "Vite"],
     liveUrl: "https://portfolio-adriana-gold.vercel.app/",
@@ -28,7 +28,7 @@ const projectsData = [
     title: "Quantum Store",
     subtitle: "E-commerce",
     description:
-      "E-commerce front-end completo com carrinho, filtros, busca e animações, construído para simular uma experiência de compra real utilizando a Context API do React.",
+      "Complete front-end e-commerce with cart, filters, search, and animations, built to simulate a real shopping experience using React's Context API.",
     imageUrl: "/quantum-store.png",
     techStack: [
       "React",
@@ -44,9 +44,9 @@ const projectsData = [
   },
   {
     title: "Odontly",
-    subtitle: "ERP para Clínicas Odontológicas",
+    subtitle: "ERP for Dental Clinics",
     description:
-      "ERP completo com IA integrada para clínicas odontológicas. Gestão de agenda, financeiro, prontuários digitais e um assistente de IA que otimiza receita e preenche lacunas na agenda automaticamente.",
+      "Full-featured ERP with integrated AI for dental clinics. Manages scheduling, finances, digital patient records, and an AI assistant that optimizes revenue and automatically fills gaps in the calendar.",
     imageUrl: "/odontly.png",
     techStack: [
       "React",
@@ -78,7 +78,7 @@ export default function Projects() {
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <p className="text-[9px] tracking-[0.55em] text-cyan-400/70 uppercase mb-3">
-            Trabalhos Selecionados
+            Selected Works
           </p>
           <h2 className="text-4xl md:text-5xl font-black tracking-[0.12em] text-white">
             PROJETOS
@@ -160,7 +160,7 @@ export default function Projects() {
                         className="flex items-center gap-2 text-[10px] tracking-[0.3em] text-gray-400 hover:text-cyan-400 transition-colors duration-200 uppercase"
                       >
                         <FaExternalLinkAlt className="text-xs" />
-                        Ver Projeto
+                        View Project
                       </a>
                       {project.repoUrl && (
                         <a
@@ -170,7 +170,7 @@ export default function Projects() {
                           className="flex items-center gap-2 text-[10px] tracking-[0.3em] text-gray-400 hover:text-cyan-400 transition-colors duration-200 uppercase"
                         >
                           <FaGithub className="text-xs" />
-                          Código
+                          Code
                         </a>
                       )}
                     </div>

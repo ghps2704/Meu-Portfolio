@@ -8,7 +8,7 @@ const MY_EMAIL = "gpersuhn2704@gmail.com";
 export default function Contact() {
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(MY_EMAIL);
-    toast.success("E-mail copiado!");
+    toast.success("Email copied!");
   };
 
   return (
@@ -26,19 +26,19 @@ export default function Contact() {
       >
         {/* Label */}
         <p className="text-[9px] tracking-[0.55em] text-cyan-400/60 uppercase mb-4">
-          Vamos trabalhar juntos
+          Let's work together
         </p>
 
         {/* Heading */}
         <h2 className="text-4xl md:text-6xl font-black tracking-[0.1em] text-white mb-3">
-          CONTATO
+          CONTACT
         </h2>
         <div className="w-12 h-px bg-cyan-400 mx-auto mb-8" />
 
         {/* Description */}
         <p className="text-gray-500 text-sm leading-relaxed mb-10 max-w-md mx-auto">
-          Gostou do que viu? Estou disponível para novas oportunidades e
-          projetos. Adoraria ouvir sobre suas ideias.
+          Like what you see? I'm open to new opportunities and projects.
+          I'd love to hear about your ideas.
         </p>
 
         {/* CTA button */}
@@ -50,7 +50,7 @@ export default function Contact() {
         >
           <span className="absolute inset-0 rounded-full bg-cyan-400/20 blur-xl group-hover:bg-cyan-400/30 transition-all duration-500" />
           <span className="relative inline-block border border-cyan-400/60 text-cyan-400 font-bold py-4 px-12 rounded-full text-sm tracking-[0.3em] uppercase hover:bg-cyan-400/10 hover:border-cyan-400 transition-all duration-300">
-            Vamos Conversar
+            Let's Talk
           </span>
         </a>
 
@@ -78,7 +78,7 @@ export default function Contact() {
           <span className="w-px h-4 bg-gray-800" />
           <button
             onClick={handleCopyEmail}
-            aria-label="Copiar e-mail"
+            aria-label="Copy email"
             className="text-gray-600 hover:text-cyan-400 transition-all duration-300 text-xl hover:scale-110"
           >
             <FaEnvelope />

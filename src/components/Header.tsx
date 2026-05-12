@@ -19,7 +19,7 @@ export default function Header({ isOpen, setIsOpen }: HeaderProps) {
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="text-white text-2xl z-50"
-          aria-label="Abrir ou fechar menu"
+          aria-label="Open or close menu"
         >
           {isOpen ? <FaTimes /> : <FaBars />}
         </button>

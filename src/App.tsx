@@ -12,10 +12,10 @@ import Header from "./components/Header";
 import MobileMenu from "./components/MobileMenu";
 
 const NAV_ITEMS = [
-  { label: "INÍCIO", id: "inicio" },
-  { label: "SOBRE", id: "sobre" },
-  { label: "PROJETOS", id: "projetos" },
-  { label: "CONTATO", id: "contato" },
+  { label: "HOME", id: "inicio" },
+  { label: "ABOUT", id: "sobre" },
+  { label: "PROJECTS", id: "projetos" },
+  { label: "CONTACT", id: "contato" },
 ];
 
 function scrollToSection(id: string) {
@@ -132,7 +132,7 @@ export default function App() {
       {/* Side navigation */}
       <nav
         className="fixed left-8 top-1/2 -translate-y-1/2 z-50 flex flex-col items-center gap-5"
-        aria-label="Navegação lateral"
+        aria-label="Side navigation"
       >
         {/* Hamburger icon */}
         <div className="flex flex-col gap-1 mb-2">
