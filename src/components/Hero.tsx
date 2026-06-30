@@ -1,41 +1,16 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import toast from "react-hot-toast";
+import SplitText from "./SplitText";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const MY_EMAIL = "gpersuhn2704@gmail.com";
 
-interface SplitCharsProps {
-  text: string;
-  outlined?: boolean;
-  className?: string;
-}
-
-function SplitChars({ text, outlined = false, className = "" }: SplitCharsProps) {
-  const style = outlined
-    ? {
-        WebkitTextStroke: "1.5px rgba(34,211,238,0.75)",
-        color: "transparent",
-      }
-    : {};
-
-  return (
-    <span className={`inline-block ${className}`} aria-label={text}>
-      {text.split("").map((char, i) => (
-        <span
-          key={i}
-          className="char inline-block"
-          style={{ opacity: 0, transform: "translateY(110px)", ...style }}
-          aria-hidden="true"
-        >
-          {char}
-        </span>
-      ))}
-    </span>
-  );
-}
-
 export default function Hero() {
+  const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const subtitleRef = useRef<HTMLDivElement>(null);
   const linksRef = useRef<HTMLDivElement>(null);
@@ -84,6 +59,35 @@ export default function Hero() {
     };
   }, []);
 
+  // "Zoom through the name" outro — the title scales up and fades as the
+  // user starts scrolling past Hero, scrubbed to scroll so it stays in
+  // lockstep with the cosmic camera move instead of firing as a one-shot.
+  useEffect(() => {
+    if (!sectionRef.current || !titleRef.current) return;
+
+    const outro = gsap.fromTo(
+      titleRef.current,
+      { scale: 1, opacity: 1, filter: "blur(0px)" },
+      {
+        scale: 2.2,
+        opacity: 0,
+        filter: "blur(6px)",
+        ease: "power1.in",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: 0.6,
+        },
+      }
+    );
+
+    return () => {
+      outro.scrollTrigger?.kill();
+      outro.kill();
+    };
+  }, []);
+
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(MY_EMAIL);
     toast.success("Email copied!");
@@ -93,6 +97,7 @@ export default function Hero() {
     <section
       id="inicio"
       data-section
+      ref={sectionRef}
       className="relative min-h-screen flex flex-col items-center justify-center text-center text-white px-6"
     >
       {/* Dark radial backdrop — darkens the cosmos behind the name without touching the letters */}
@@ -110,17 +115,19 @@ export default function Hero() {
       <div ref={titleRef} className="relative leading-none overflow-visible">
         {/* First line — solid white */}
         <div className="overflow-hidden mb-2">
-          <SplitChars
+          <SplitText
             text="GUILHERME"
+            yOffset={110}
             className="text-[12vw] md:text-[10vw] font-black tracking-[0.05em] text-white"
           />
         </div>
 
         {/* Second line — outlined / stroke only */}
         <div className="overflow-hidden">
-          <SplitChars
+          <SplitText
             text="PERSUHN"
             outlined
+            yOffset={110}
             className="text-[12vw] md:text-[10vw] font-black tracking-[0.1em]"
           />
         </div>
@@ -154,6 +161,7 @@ export default function Hero() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="GitHub"
+          data-magnetic
           className="text-gray-500 hover:text-cyan-400 transition-all duration-300 text-xl hover:scale-110"
         >
           <FaGithub />
@@ -164,6 +172,7 @@ export default function Hero() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="LinkedIn"
+          data-magnetic
           className="text-gray-500 hover:text-cyan-400 transition-all duration-300 text-xl hover:scale-110"
         >
           <FaLinkedin />
@@ -172,6 +181,7 @@ export default function Hero() {
         <button
           onClick={handleCopyEmail}
           aria-label="Copy email"
+          data-magnetic
           className="text-gray-500 hover:text-cyan-400 transition-all duration-300 text-xl hover:scale-110"
         >
           <FaEnvelope />

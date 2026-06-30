@@ -1,9 +1,11 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Toaster } from "react-hot-toast";
 import useMediaQuery from "./hooks/useMediaQuery";
+import useLenis, { getLenis } from "./hooks/useLenis";
 
 import CosmosBackground from "./components/CosmosBackground";
+import CustomCursor from "./components/CustomCursor";
 import Hero from "./components/Hero";
 import About from "./components/About";
 import Projects from "./components/Projects";
@@ -19,7 +21,14 @@ const NAV_ITEMS = [
 ];
 
 function scrollToSection(id: string) {
-  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  const el = document.getElementById(id);
+  if (!el) return;
+  const lenis = getLenis();
+  if (lenis) {
+    lenis.scrollTo(el, { duration: 1.4 });
+  } else {
+    el.scrollIntoView({ behavior: "smooth" });
+  }
 }
 
 export default function App() {
@@ -27,40 +36,47 @@ export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [currentSection, setCurrentSection] = useState(0);
-  const ticking = useRef(false);
+
+  useLenis(!isMobile);
 
   useEffect(() => {
     if (isMobile) return;
 
-    const onScroll = () => {
-      if (ticking.current) return;
-      ticking.current = true;
-      requestAnimationFrame(() => {
-        const maxScroll =
-          document.documentElement.scrollHeight - window.innerHeight;
-        const progress = maxScroll > 0
-          ? Math.max(0, Math.min(1, window.scrollY / maxScroll))
-          : 0;
-        setScrollProgress(progress);
+    const ids = NAV_ITEMS.map((n) => n.id);
 
-        // Determine current section by which element is most in view
-        const ids = NAV_ITEMS.map((n) => n.id);
-        let active = 0;
-        ids.forEach((id, i) => {
-          const el = document.getElementById(id);
-          if (el) {
-            const rect = el.getBoundingClientRect();
-            if (rect.top <= window.innerHeight * 0.5) active = i;
-          }
-        });
-        setCurrentSection(active);
-        ticking.current = false;
+    const updateProgress = (scroll: number, limit: number) => {
+      const progress = limit > 0 ? Math.max(0, Math.min(1, scroll / limit)) : 0;
+      setScrollProgress(progress);
+
+      let active = 0;
+      ids.forEach((id, i) => {
+        const el = document.getElementById(id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= window.innerHeight * 0.5) active = i;
+        }
       });
+      setCurrentSection(active);
     };
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-    return () => window.removeEventListener("scroll", onScroll);
+    // Lenis mounts in the same effect pass (parent-after-children commit
+    // order means it's ready by the time this runs); fall back to native
+    // scroll only for the very first paint before it attaches.
+    const lenis = getLenis();
+    if (lenis) {
+      lenis.on("scroll", ({ scroll, limit }) => updateProgress(scroll, limit));
+    }
+
+    const maxScroll = () =>
+      document.documentElement.scrollHeight - window.innerHeight;
+    updateProgress(window.scrollY, maxScroll());
+
+    const onNativeScroll = () => {
+      if (getLenis()) return; // Lenis callback already covers this
+      updateProgress(window.scrollY, maxScroll());
+    };
+    window.addEventListener("scroll", onNativeScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onNativeScroll);
   }, [isMobile]);
 
   // Mobile layout — cosmos lite + standard scroll
@@ -119,6 +135,9 @@ export default function App() {
       {/* Three.js fixed canvas */}
       <CosmosBackground />
 
+      {/* Magnetic custom cursor */}
+      <CustomCursor />
+
       {/* Dark vignette overlay — improves text readability against bright stars/bloom */}
       <div
         className="fixed inset-0 pointer-events-none"
@@ -149,6 +168,7 @@ export default function App() {
           {NAV_ITEMS.map((item, i) => (
             <button
               key={item.id}
+              data-magnetic
               onClick={() => scrollToSection(item.id)}
               className={`text-[10px] tracking-[0.35em] font-light transition-all duration-300 ${
                 currentSection === i

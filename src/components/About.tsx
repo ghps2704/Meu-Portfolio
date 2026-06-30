@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import ParallaxTilt from "react-parallax-tilt";
+import SplitText from "./SplitText";
 
 const techSkills = [
   "React",
@@ -62,12 +64,22 @@ export default function About() {
             transition={{ duration: 0.9, ease: "easeOut", delay: 0.15 }}
           >
             {/* Glass card */}
-            <div className="bg-black/60 backdrop-blur-md border border-white/10 rounded-2xl p-8 md:p-10">
+            <ParallaxTilt
+              tiltMaxAngleX={4}
+              tiltMaxAngleY={4}
+              perspective={1400}
+              scale={1.01}
+              transitionSpeed={1200}
+              glareEnable
+              glareMaxOpacity={0.05}
+              glareColor="#22d3ee"
+              className="bg-black/60 backdrop-blur-md border border-white/10 rounded-2xl p-8 md:p-10"
+            >
               <h2 className="text-[10px] tracking-[0.55em] text-cyan-400/70 uppercase mb-3">
                 About Me
               </h2>
               <h3 className="text-3xl md:text-4xl font-black tracking-wider text-white mb-2">
-                GUILHERME
+                <SplitText text="GUILHERME" animateOnScroll yOffset={30} />
               </h3>
               <div className="w-10 h-px bg-cyan-400 mb-7" />
 
@@ -112,7 +124,7 @@ export default function About() {
                   ))}
                 </div>
               </div>
-            </div>
+            </ParallaxTilt>
           </motion.div>
         </div>
       </div>

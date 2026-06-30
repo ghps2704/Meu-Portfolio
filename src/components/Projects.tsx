@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 import ParallaxTilt from "react-parallax-tilt";
+import useMediaQuery from "../hooks/useMediaQuery";
+import SplitText from "./SplitText";
 
 const projectsData = [
   {
@@ -61,73 +63,168 @@ const projectsData = [
   },
 ];
 
+function ProjectLinks({ project }: { project: (typeof projectsData)[number] }) {
+  return (
+    <div className="flex items-center gap-6">
+      <a
+        href={project.liveUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        data-magnetic
+        className="flex items-center gap-2 text-[10px] tracking-[0.3em] text-gray-400 hover:text-cyan-400 transition-colors duration-200 uppercase"
+      >
+        <FaExternalLinkAlt className="text-xs" />
+        View Project
+      </a>
+      {project.repoUrl && (
+        <a
+          href={project.repoUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-magnetic
+          className="flex items-center gap-2 text-[10px] tracking-[0.3em] text-gray-400 hover:text-cyan-400 transition-colors duration-200 uppercase"
+        >
+          <FaGithub className="text-xs" />
+          Code
+        </a>
+      )}
+    </div>
+  );
+}
+
+function TechTags({ techStack }: { techStack: string[] }) {
+  return (
+    <div className="flex flex-wrap gap-1.5">
+      {techStack.map((tech) => (
+        <span
+          key={tech}
+          className="bg-white/5 border border-white/8 text-cyan-400/70 px-2.5 py-1 rounded-full text-[10px] tracking-wide"
+        >
+          {tech}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+function SectionHeading() {
+  return (
+    <motion.div
+      className="mb-16"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.5 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+    >
+      <p className="text-[9px] tracking-[0.55em] text-cyan-400/70 uppercase mb-3">
+        Selected Works
+      </p>
+      <h2 className="text-4xl md:text-5xl font-black tracking-[0.12em] text-white">
+        PROJETOS
+      </h2>
+      <div className="w-10 h-px bg-cyan-400 mt-4" />
+    </motion.div>
+  );
+}
+
 export default function Projects() {
+  const isDesktop = useMediaQuery("(min-width: 768px)");
+
   return (
     <section
       id="projetos"
       data-section
-      className="relative min-h-screen py-24 px-6 md:px-16"
+      className="relative min-h-screen py-24 px-6 md:pl-32 md:pr-16"
     >
       <div className="container mx-auto max-w-6xl">
-        {/* Section heading */}
-        <motion.div
-          className="mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          <p className="text-[9px] tracking-[0.55em] text-cyan-400/70 uppercase mb-3">
-            Selected Works
-          </p>
-          <h2 className="text-4xl md:text-5xl font-black tracking-[0.12em] text-white">
-            PROJETOS
-          </h2>
-          <div className="w-10 h-px bg-cyan-400 mt-4" />
-        </motion.div>
+        <SectionHeading />
 
-        {/* Project cards grid */}
-        <div className="flex flex-wrap justify-center gap-6">
-          {projectsData.map((project, index) => (
-            <motion.div
-              key={index}
-              className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{
-                duration: 0.7,
-                ease: "easeOut",
-                delay: index * 0.1,
-              }}
-            >
-              <ParallaxTilt
-                tiltMaxAngleX={6}
-                tiltMaxAngleY={6}
-                perspective={1200}
-                scale={1.03}
-                transitionSpeed={1200}
-                gyroscope
-                className="h-full"
+        {isDesktop ? (
+          // Case-study layout — each project gets its own full-width,
+          // alternating-side scene instead of being squeezed into a grid card.
+          <div className="flex flex-col gap-32">
+            {projectsData.map((project, index) => {
+              const reversed = index % 2 === 1;
+              return (
+                <motion.div
+                  key={project.title}
+                  className={`flex flex-col md:flex-row ${reversed ? "md:flex-row-reverse" : ""} items-center gap-12`}
+                  initial={{ opacity: 0, x: reversed ? 60 : -60 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.9, ease: "easeOut" }}
+                >
+                  <div className="w-full md:w-3/5">
+                    <ParallaxTilt
+                      tiltMaxAngleX={5}
+                      tiltMaxAngleY={5}
+                      perspective={1400}
+                      scale={1.02}
+                      transitionSpeed={1200}
+                      glareEnable
+                      glareMaxOpacity={0.08}
+                      glareColor="#22d3ee"
+                      glareBorderRadius="20px"
+                    >
+                      <div className="group relative rounded-2xl overflow-hidden border border-white/10 hover:border-cyan-400/30 transition-all duration-500">
+                        <div
+                          className={`absolute inset-x-0 top-0 h-px bg-gradient-to-r ${project.accentColor} opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10`}
+                        />
+                        <img
+                          src={project.imageUrl}
+                          alt={project.title}
+                          loading="lazy"
+                          className="w-full h-72 lg:h-80 object-cover object-top group-hover:scale-105 transition-transform duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                      </div>
+                    </ParallaxTilt>
+                  </div>
+
+                  <div className="w-full md:w-2/5">
+                    <p className="text-[9px] tracking-[0.45em] text-gray-600 uppercase mb-2">
+                      {project.subtitle}
+                    </p>
+                    <h3 className="text-3xl lg:text-4xl font-black tracking-wider text-white mb-4">
+                      <SplitText text={project.title} animateOnScroll yOffset={24} />
+                    </h3>
+                    <p className="text-gray-400 text-sm leading-relaxed mb-6">
+                      {project.description}
+                    </p>
+                    <div className="mb-7">
+                      <TechTags techStack={project.techStack} />
+                    </div>
+                    <ProjectLinks project={project} />
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        ) : (
+          // Mobile — compact grid, no pinned scroll choreography
+          <div className="flex flex-wrap justify-center gap-6">
+            {projectsData.map((project, index) => (
+              <motion.div
+                key={project.title}
+                className="w-full"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.7, ease: "easeOut", delay: index * 0.1 }}
               >
                 <div className="group relative h-full bg-black/60 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden hover:border-cyan-400/30 transition-all duration-500">
-                  {/* Gradient accent top */}
                   <div
                     className={`absolute inset-x-0 top-0 h-px bg-gradient-to-r ${project.accentColor} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
                   />
-
-                  {/* Project image */}
                   <div className="relative overflow-hidden h-44">
                     <img
                       src={project.imageUrl}
                       alt={project.title}
                       loading="lazy"
-                      className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
+                      className="w-full h-full object-cover object-top"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                   </div>
-
-                  {/* Content */}
                   <div className="p-6">
                     <p className="text-[9px] tracking-[0.45em] text-gray-600 uppercase mb-1">
                       {project.subtitle}
@@ -138,48 +235,16 @@ export default function Projects() {
                     <p className="text-gray-500 text-xs leading-relaxed mb-5">
                       {project.description}
                     </p>
-
-                    {/* Tech tags */}
-                    <div className="flex flex-wrap gap-1.5 mb-6">
-                      {project.techStack.map((tech) => (
-                        <span
-                          key={tech}
-                          className="bg-white/5 border border-white/8 text-cyan-400/70 px-2.5 py-1 rounded-full text-[10px] tracking-wide"
-                        >
-                          {tech}
-                        </span>
-                      ))}
+                    <div className="mb-6">
+                      <TechTags techStack={project.techStack} />
                     </div>
-
-                    {/* Links */}
-                    <div className="flex items-center gap-5">
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-[10px] tracking-[0.3em] text-gray-400 hover:text-cyan-400 transition-colors duration-200 uppercase"
-                      >
-                        <FaExternalLinkAlt className="text-xs" />
-                        View Project
-                      </a>
-                      {project.repoUrl && (
-                        <a
-                          href={project.repoUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 text-[10px] tracking-[0.3em] text-gray-400 hover:text-cyan-400 transition-colors duration-200 uppercase"
-                        >
-                          <FaGithub className="text-xs" />
-                          Code
-                        </a>
-                      )}
-                    </div>
+                    <ProjectLinks project={project} />
                   </div>
                 </div>
-              </ParallaxTilt>
-            </motion.div>
-          ))}
-        </div>
+              </motion.div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
